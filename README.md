@@ -1,9 +1,89 @@
-# Useful-Claude-Skills
-A collection of useful Claude skills I have created and used in my projects
+# Useful AI Agent Skills
+
+A collection of production-ready skills for AI coding agents. Built and tested with Claude Code, but designed to work with any AI agent — OpenAI Codex, GitHub Copilot, Cursor, Windsurf, or any tool that can read structured markdown instructions.
+
+## Why Agent Skills?
+
+AI coding agents are powerful, but they need domain context to implement things like payment gateways correctly. These skills give your agent the guardrails, security patterns, and implementation references it needs to ship production-quality code — regardless of which agent you use.
+
+## Available Skills
+
+| Skill | Coverage | Key Features |
+|-------|----------|--------------|
+| [Flutterwave Integration](payment-gateway-integrations-skills/flutterwave-integration/) | 34+ African countries | Mobile money, card, bank transfer, subscriptions |
+| [Paystack Integration](payment-gateway-integrations-skills/paystack-integration/) | Nigeria, Ghana, Kenya, South Africa | Card, bank, USSD, subscriptions |
+
+> More skills coming soon — contributions welcome.
+
+---
+
+## Quick Start
+
+### 1. Pick a skill
+
+Browse the [Available Skills](#available-skills) table above and open the skill folder you need.
+
+### 2. Point your agent at it
+
+Every skill has a `SKILL.md` entry point. How you load it depends on your agent:
+
+**Claude Code (recommended — built and tested here first)**
+```bash
+# Add as a project skill (persists across sessions)
+cp -r payment-gateway-integrations-skills/paystack-integration ~/.claude/skills/paystack-integration
+
+# Or reference directly in a prompt
+# "Read payment-gateway-integrations-skills/paystack-integration/SKILL.md and implement Paystack payments for my Next.js app"
+```
+
+**OpenAI Codex / ChatGPT**
+```
+Point your agent to the folder containing SKILL.md and references, tell it to follow instructions witin. Codex will follow the decision tree and reference files just like Claude does. Reference SKILL.md in your prompt:
+
+"Follow the instructions in SKILL.md to add Flutterwave payments. ...{You can add other codebase specific instructions or unique features you want}"
+```
+
+**GitHub Copilot / Cursor / Windsurf**
+```
+Add the skill folder to your project (or workspace) so the agent can
+discover it. Reference SKILL.md in your prompt:
+
+"Follow the instructions in SKILL.md to add Flutterwave payments. ...{You can add other codebase specific instructions or unique features you want}"
+```
+
+**Any other agent**
+```
+These skills are plain markdown — no proprietary format. Any agent that
+can read files or accept text context can use them. Just point them to SKILL.md and its references/ folder for deeper implementation details.
+```
+
+### 3. Give it a task
+
+Once your agent has the skill loaded, prompt it with what you need:
+
+```
+"Set up Paystack one-time payments in my Next.js app with webhook verification"
+
+"Add Flutterwave mobile money payments for Kenya and Ghana"
+
+"Implement subscription billing with Paystack"
+```
+
+The skill's decision tree will route your agent to the right reference files automatically.
+
+### 4. Verify before shipping
+
+These skills handle financial transactions. Always:
+- Test end-to-end in sandbox/test mode using the provided test credentials
+- Audit webhook signature verification
+- Confirm amount verification logic
+- Review the `AGENT_EXECUTION_SPEC.md` safety checklist
+
+---
 
 # Flutterwave Integration Skill
 
-A useful AI agents Code skill for implementing Flutterwave payment processing across 34+ African countries. Built for agents integrating payments, framework agnostic with Next.js and Express implementation guidelines.
+An AI agent skill for implementing Flutterwave payment processing across 34+ African countries. Framework agnostic with Next.js and Express implementation guidelines.
 
 ## What This Skill Does
 
@@ -112,17 +192,17 @@ Keys format:
 
 - **Score**: 9/10
 - **Strengths**: Clear security-first approach, comprehensive mobile money docs, excellent TypeScript types
-- **Minor gaps**: Could add "Quick Start" section, subscription lifecycle flowchart
+- **Minor gaps**: Could add subscription lifecycle flowchart
 
 ---
 
-Built for Claude Code agents, usable by other AI agents implementing African payment infrastructure. Covers frontend and backend implementations at a go.
+Built for AI coding agents implementing African payment infrastructure. Works with Claude Code, OpenAI Codex, GitHub Copilot, Cursor, and any agent that reads markdown. Covers frontend and backend implementations.
 
 =======================================================
 
 # Paystack Integration Skill
 
-A Claude Code skill for implementing Paystack payment processing for African markets (Nigeria, Ghana, Kenya, South Africa). Built for AI agents integrating payments, framework agnostic with Next.js and Express implementation guidelines.
+An AI agent skill for implementing Paystack payment processing for African markets (Nigeria, Ghana, Kenya, South Africa). Framework agnostic with Next.js and Express implementation guidelines.
 
 ## What This Skill Does
 
@@ -219,15 +299,15 @@ Keys format:
 
 - **Score**: 8.5/10
 - **Strengths**: Clear security-first approach, production-ready examples, comprehensive types
-- **Minor gaps**: Could add "Quick Start" section, subscription lifecycle flowchart
+- **Minor gaps**: Could add subscription lifecycle flowchart
 
 ---
 
-Built for Claude Code agents, usable by other AI agents implementing African payment infrastructure. Covers frontend and backend implementations at a go.
+Built for AI coding agents implementing African payment infrastructure. Works with Claude Code, OpenAI Codex, GitHub Copilot, Cursor, and any agent that reads markdown. Covers frontend and backend implementations.
 
 ---
 ### Developer Safety Note
-This skill handles financial transactions. Before moving to production:
-* Always verify AI-generated code.
-* Test end-to-end flows in Paystack Test Mode.
-* Audit your webhook signature verification—never skip the raw body check.
+These skills handle financial transactions. Before moving to production:
+* Always verify AI-generated code regardless of which agent produced it.
+* Test end-to-end flows in sandbox/test mode with the provided test credentials.
+* Audit your webhook signature verification — never skip the raw body check.
