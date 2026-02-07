@@ -86,6 +86,22 @@ These skills handle high-risk surfaces (money and identity). Always:
 - Audit `state`/`nonce` validation and session rotation (auth)
 - Review the `AGENT_EXECUTION_SPEC.md` safety checklist
 
+### Do Scripts Run Automatically?
+
+No. Scripts are not magic background processes.
+
+- A script runs only when you (or your coding agent) execute it.
+- The updated `SKILL.md` files now explicitly tell the agent when to run them.
+- If your agent does not have shell/tool execution enabled, it can still use the skill, but script checks will be manual.
+
+Typical run style:
+
+```bash
+python3 path/to/script.py input.json
+# or
+cat input.json | python3 path/to/script.py
+```
+
 ---
 
 # Flutterwave Integration Skill

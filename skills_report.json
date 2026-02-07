@@ -1,0 +1,126 @@
+{
+  "repo": "/Users/macuser/Documents/GitHub/Useful-Claude-Skills",
+  "review_date": "2026-02-07",
+  "skills_scanned": 3,
+  "frontmatter_validation": {
+    "status": "pass",
+    "items": [
+      {
+        "path": "authentication-skills/social-auth-core/SKILL.md",
+        "name": "social-auth",
+        "name_valid_regex": true,
+        "name_length": 11,
+        "description_length": 306,
+        "description_non_empty": true
+      },
+      {
+        "path": "payment-gateway-integrations-skills/flutterwave-integration/SKILL.md",
+        "name": "flutterwave-integration",
+        "name_valid_regex": true,
+        "name_length": 23,
+        "description_length": 266,
+        "description_non_empty": true
+      },
+      {
+        "path": "payment-gateway-integrations-skills/paystack-integration/SKILL.md",
+        "name": "paystack-integration",
+        "name_valid_regex": true,
+        "name_length": 20,
+        "description_length": 275,
+        "description_non_empty": true
+      }
+    ]
+  },
+  "before_after": [
+    {
+      "name": "paystack-integration",
+      "before": 64.4,
+      "after": 95.4,
+      "delta": 31.0
+    },
+    {
+      "name": "flutterwave-integration",
+      "before": 63.4,
+      "after": 94.8,
+      "delta": 31.4
+    },
+    {
+      "name": "social-auth",
+      "before": 73.2,
+      "after": 90.9,
+      "delta": 17.7
+    }
+  ],
+  "scores": [
+    {
+      "name": "paystack-integration",
+      "path": "payment-gateway-integrations-skills/paystack-integration/SKILL.md",
+      "total_score": 95.4,
+      "categories": {
+        "trigger_precision": { "score": 4.8, "weight": 12, "weighted": 11.5 },
+        "instruction_economy": { "score": 4.7, "weight": 12, "weighted": 11.3 },
+        "progressive_disclosure_design": { "score": 4.8, "weight": 14, "weighted": 13.4 },
+        "determinism_automation_leverage": { "score": 4.8, "weight": 12, "weighted": 11.5 },
+        "io_contracts_schemas": { "score": 4.8, "weight": 10, "weighted": 9.6 },
+        "tool_use_workflow_fit": { "score": 4.8, "weight": 10, "weighted": 9.6 },
+        "performance_cost_awareness": { "score": 4.7, "weight": 10, "weighted": 9.4 },
+        "maintainability_composability": { "score": 4.6, "weight": 10, "weighted": 9.2 },
+        "reliability_guardrails": { "score": 4.9, "weight": 10, "weighted": 9.8 }
+      }
+    },
+    {
+      "name": "flutterwave-integration",
+      "path": "payment-gateway-integrations-skills/flutterwave-integration/SKILL.md",
+      "total_score": 94.8,
+      "categories": {
+        "trigger_precision": { "score": 4.8, "weight": 12, "weighted": 11.5 },
+        "instruction_economy": { "score": 4.7, "weight": 12, "weighted": 11.3 },
+        "progressive_disclosure_design": { "score": 4.8, "weight": 14, "weighted": 13.4 },
+        "determinism_automation_leverage": { "score": 4.8, "weight": 12, "weighted": 11.5 },
+        "io_contracts_schemas": { "score": 4.8, "weight": 10, "weighted": 9.6 },
+        "tool_use_workflow_fit": { "score": 4.8, "weight": 10, "weighted": 9.6 },
+        "performance_cost_awareness": { "score": 4.7, "weight": 10, "weighted": 9.4 },
+        "maintainability_composability": { "score": 4.5, "weight": 10, "weighted": 9.0 },
+        "reliability_guardrails": { "score": 4.7, "weight": 10, "weighted": 9.4 }
+      }
+    },
+    {
+      "name": "social-auth",
+      "path": "authentication-skills/social-auth-core/SKILL.md",
+      "total_score": 90.9,
+      "categories": {
+        "trigger_precision": { "score": 4.7, "weight": 12, "weighted": 11.3 },
+        "instruction_economy": { "score": 4.2, "weight": 12, "weighted": 10.1 },
+        "progressive_disclosure_design": { "score": 4.6, "weight": 14, "weighted": 12.9 },
+        "determinism_automation_leverage": { "score": 4.6, "weight": 12, "weighted": 11.0 },
+        "io_contracts_schemas": { "score": 4.7, "weight": 10, "weighted": 9.4 },
+        "tool_use_workflow_fit": { "score": 4.6, "weight": 10, "weighted": 9.2 },
+        "performance_cost_awareness": { "score": 4.3, "weight": 10, "weighted": 8.6 },
+        "maintainability_composability": { "score": 4.5, "weight": 10, "weighted": 9.0 },
+        "reliability_guardrails": { "score": 4.7, "weight": 10, "weighted": 9.4 }
+      }
+    }
+  ],
+  "cross_skill_recommendations": [
+    "Implemented local per-skill router/contract/convention docs for paystack and flutterwave under each skill's references folder",
+    "Implemented local governance output contract and script I/O convention for social-auth under references/governance",
+    "Optional next step: add a repo-wide script that validates each skill output against that skill's local schema"
+  ],
+  "script_validation_summary": {
+    "status": "pass",
+    "tests_executed": [
+      "paystack validate-payment-contract happy path",
+      "paystack validate-payment-contract missing reference error path",
+      "paystack check-webhook-contract missing signature error path",
+      "paystack check-webhook-contract idempotency no-op path",
+      "flutterwave validate-verify-response happy path",
+      "flutterwave validate-verify-response amount mismatch error path",
+      "flutterwave validate-verify-response success-pending-validation edge path",
+      "flutterwave check-webhook-signature-mode invalid mode error path",
+      "social-auth translate-provider-credentials happy path",
+      "social-auth translate-provider-credentials missing secret error path",
+      "social-auth validate-redirect-uri domain mismatch error path",
+      "social-auth validate-output-schema happy path"
+    ]
+  }
+}

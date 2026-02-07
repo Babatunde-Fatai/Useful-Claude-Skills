@@ -51,8 +51,19 @@ Comprehensive documentation for mobile money across regions:
 ```
 flutterwave-integration/
 ├── SKILL.md                              # Entry point - start here
+├── scripts/
+│   ├── validate-verify-response.py       # Checks tx_ref/amount/status handling
+│   └── check-webhook-signature-mode.py   # Checks signature mode contract and required headers
 └── references/
     ├── AGENT_EXECUTION_SPEC.md           # Safety contract (read first)
+    ├── quick-reference.md                # Compact env/config reminders
+    ├── core-implementation.md            # Minimal backend flow checklist
+    ├── webhook-playbook.md               # Webhook processing sequence
+    ├── io-contracts.md                   # Script input/output contracts
+    ├── output-contract.md                # Required response shape for agent outputs
+    ├── output-schema.json                # Machine-checkable output schema
+    ├── script-io-convention.md           # Deterministic script envelope/exit-code rules
+    ├── payment-router-template.md        # Local router baseline (self-contained)
     ├── one-time-payments.md              # Initialize, verify, tokenization
     ├── webhooks.md                       # Both verification methods
     ├── mobile-money.md                   # M-Pesa, MTN, Airtel, Francophone
@@ -73,6 +84,24 @@ flutterwave-integration/
 2. **Start with AGENT_EXECUTION_SPEC.md** - Defines the 10 payment invariants that prevent fraud
 3. **Pick framework guide** - `nextjs-implementation.md` or `express-implementation.md`
 4. **Add specialized features** - Mobile money, subscriptions, etc.
+
+## Deterministic Script Checks
+
+These scripts are optional but strongly recommended before shipping:
+
+- `scripts/validate-verify-response.py`
+  - Checks: `tx_ref` match, amount match, settlement status behavior (`success-pending-validation` -> await webhook).
+- `scripts/check-webhook-signature-mode.py`
+  - Checks: valid signature mode, required headers, raw-body requirement for HMAC mode.
+
+Run examples:
+
+```bash
+python3 scripts/validate-verify-response.py payload.json
+python3 scripts/check-webhook-signature-mode.py payload.json
+```
+
+Important: scripts do not run automatically. They run only when you (or your agent) execute them.
 
 ## Security Standards (Non-Negotiable)
 

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flutterwave-skill-output-schema",
+  "title": "Flutterwave Skill Output",
+  "type": "object",
+  "required": ["summary", "artifacts", "next_actions", "machine_json"],
+  "properties": {
+    "summary": { "type": "string", "minLength": 1 },
+    "artifacts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_actions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "machine_json": {
+      "type": "object",
+      "required": ["decisions", "risks", "required_inputs", "validation_results"],
+      "properties": {
+        "decisions": { "type": "array", "items": { "type": "string" } },
+        "risks": { "type": "array", "items": { "type": "string" } },
+        "required_inputs": { "type": "array", "items": { "type": "string" } },
+        "validation_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "ok"],
+            "properties": {
+              "name": { "type": "string" },
+              "ok": { "type": "boolean" },
+              "details": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

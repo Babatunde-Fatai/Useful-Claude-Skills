@@ -61,12 +61,20 @@ The skill includes an explicit, safe “trusted email” rule: auto-link by emai
 ```
 social-auth-core/
 ├── SKILL.md                              # Entry point - start here
+├── scripts/
+│   ├── translate-provider-credentials.py # Checks required provider credentials and maps env vars
+│   ├── validate-redirect-uri.py          # Checks callback URL safety/consistency
+│   └── validate-output-schema.py         # Checks required output JSON shape
 └── references/
     ├── AGENT_EXECUTION_SPEC.md           # Security contract + required output order
     ├── providers/                        # Provider specifics (Google, GitHub, LinkedIn, Apple, Twitter/X)
     ├── patterns/                         # OAuth flow, sessions, tokens, refresh lifecycle, data models
     ├── adapters/                         # Next.js, Express, vanilla Node, plus other framework patterns
     └── governance/                       # Env contract, edge cases, account linking, testing/validation
+        ├── output-contract.md            # Required narrative+JSON output sections
+        ├── output-schema.json            # Machine-checkable output schema
+        ├── output-template.md            # Reusable output template
+        └── script-io-convention.md       # Deterministic script envelope/exit-code rules
 ```
 
 ## How Agents Should Use This Skill
@@ -76,6 +84,27 @@ social-auth-core/
 3. **Pick provider docs** - read the provider reference and verify against live provider docs
 4. **Pick an adapter** - Next.js/Express/vanilla Node, or pseudocode patterns for unsupported frameworks
 5. **Follow governance** - env naming, edge cases, account linking, and testing checklist are mandatory
+
+## Deterministic Script Checks
+
+These scripts are optional but strongly recommended before implementation:
+
+- `scripts/translate-provider-credentials.py`
+  - Checks required credential fields for the chosen provider, then outputs env var mapping.
+- `scripts/validate-redirect-uri.py`
+  - Checks callback URL safety and backend/redirect host consistency.
+- `scripts/validate-output-schema.py`
+  - Checks that required output structure is complete and machine-readable.
+
+Run examples:
+
+```bash
+python3 scripts/translate-provider-credentials.py payload.json
+python3 scripts/validate-redirect-uri.py payload.json
+python3 scripts/validate-output-schema.py output.json
+```
+
+Important: scripts do not run automatically. They run only when you (or your agent) execute them.
 
 ## Security Standards (Non-Negotiable)
 

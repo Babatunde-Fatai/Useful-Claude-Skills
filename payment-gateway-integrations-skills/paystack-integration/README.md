@@ -48,8 +48,19 @@ Amount verification prevents underpayment fraud.
 ```
 paystack-integration/
 ├── SKILL.md                              # Entry point - start here
+├── scripts/
+│   ├── validate-payment-contract.py      # Checks verify response vs expected ref/amount/status
+│   └── check-webhook-contract.py         # Checks webhook preconditions/signature/idempotency
 └── references/
     ├── AGENT_EXECUTION_SPEC.md           # Safety contract (read first)
+    ├── quick-reference.md                # Compact env/config reminders
+    ├── core-implementation.md            # Minimal backend flow checklist
+    ├── webhook-playbook.md               # Webhook processing sequence
+    ├── io-contracts.md                   # Script input/output contracts
+    ├── output-contract.md                # Required response shape for agent outputs
+    ├── output-schema.json                # Machine-checkable output schema
+    ├── script-io-convention.md           # Deterministic script envelope/exit-code rules
+    ├── payment-router-template.md        # Local router baseline (self-contained)
     ├── one-time-payments.md              # Initialize, verify, popup/redirect
     ├── webhooks.md                       # Signature verification, events
     ├── subscriptions.md                  # Plans, recurring, authorization
@@ -65,6 +76,30 @@ paystack-integration/
 2. **Start with AGENT_EXECUTION_SPEC.md** - Defines the payment invariants that prevent fraud
 3. **Pick framework guide** - `nextjs-implementation.md` or `express-implementation.md`
 4. **Add specialized features** - Subscriptions, charge authorization, etc.
+
+## Deterministic Script Checks
+
+These scripts are optional but strongly recommended before shipping:
+
+- `scripts/validate-payment-contract.py`
+  - Checks: status success, reference match, amount match, idempotent no-op behavior.
+- `scripts/check-webhook-contract.py`
+  - Checks: raw body enabled, `x-paystack-signature` present, mismatch checks, idempotent no-op behavior.
+
+Run examples:
+
+```bash
+python3 scripts/validate-payment-contract.py payload.json
+python3 scripts/check-webhook-contract.py payload.json
+```
+
+Or with stdin:
+
+```bash
+cat payload.json | python3 scripts/validate-payment-contract.py
+```
+
+Important: scripts do not run automatically. They run only when you (or your agent) execute them.
 
 ## Security Standards (Non-Negotiable)
 
